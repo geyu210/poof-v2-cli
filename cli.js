@@ -49,11 +49,11 @@ const init = async (skipDeps, provingSystem) => {
     // Initialize deps
     await getProofDeps([
       provingSystem === 1
-        ? "https://poof.nyc3.cdn.digitaloceanspaces.com/Deposit2.wasm.gz"
-        : "https://poofgroth.nyc3.cdn.digitaloceanspaces.com/Deposit.wasm.gz",
+        ? "./depends/Deposit/deposit=1/Deposit2 (1).wasm.gz"
+        : "./depends/Deposit/Deposit.wasm.gz",
       provingSystem === 1
-        ? "https://poof.nyc3.cdn.digitaloceanspaces.com/Deposit2_circuit_final.zkey.gz"
-        : "https://poofgroth.nyc3.cdn.digitaloceanspaces.com/Deposit_circuit_final.zkey.gz",
+        ? "./depends/Deposit/deposit=1/Deposit2_circuit_final.zkey.gz"
+        : "./depends/Deposit/Deposit_circuit_final.zkey.gz",
     ]).then((deps) =>
       poofKit.initializeDeposit(
         async () => deps[0],
@@ -62,24 +62,25 @@ const init = async (skipDeps, provingSystem) => {
     );
     await getProofDeps([
       provingSystem === 1
-        ? "https://poof.nyc3.cdn.digitaloceanspaces.com/Withdraw2.wasm.gz"
-        : "https://poofgroth.nyc3.cdn.digitaloceanspaces.com/Withdraw.wasm.gz",
+        ? "./depends/withdraw/poof.nyc3.cdn.digitaloceanspaces.com:Withdraw2.wasm/Withdraw2.wasm.gz"
+        : "./depends/withdraw/poofgroth.nyc3.cdn.digitaloceanspaces.com:Withdraw.wasm/Withdraw.wasm.gz",
       provingSystem === 1
-        ? "https://poof.nyc3.cdn.digitaloceanspaces.com/Withdraw2_circuit_final.zkey.gz"
-        : "https://poofgroth.nyc3.cdn.digitaloceanspaces.com/Withdraw_circuit_final.zkey.gz",
+        ? "./depends/withdraw/poof.nyc3.cdn.digitaloceanspaces.com:Withdraw2_circuit_final.zkey/Withdraw2_circuit_final.zkey.gz"
+        : "./depends/withdraw/poofgroth.nyc3.cdn.digitaloceanspaces.com:Withdraw_circuit_final.zkey/Withdraw_circuit_final.zkey.gz",
     ]).then((deps) =>
       poofKit.initializeWithdraw(
         async () => deps[0],
         async () => deps[1]
       )
     );
+
     await getProofDeps([
       provingSystem === 1
-        ? "https://poof.nyc3.cdn.digitaloceanspaces.com/InputRoot.wasm.gz"
-        : "https://poofgroth.nyc3.cdn.digitaloceanspaces.com/InputRoot.wasm.gz",
+        ? "./depends/Inputroot/Inputroot_1/InputRoot.wasm.gz"
+        : "./depends/Inputroot/Inputroot_not1/InputRoot.wasm.gz",
       provingSystem === 1
-        ? "https://poof.nyc3.cdn.digitaloceanspaces.com/InputRoot_circuit_final.zkey.gz"
-        : "https://poofgroth.nyc3.cdn.digitaloceanspaces.com/InputRoot_circuit_final.zkey.gz",
+        ? "./depends/Inputroot/Inputroot_1/InputRoot_circuit_final.zkey.gz"
+        : "./depends/Inputroot/Inputroot_not1/InputRoot_circuit_final.zkey.gz",
     ]).then((deps) =>
       poofKit.initializeInputRoot(
         async () => deps[0],
@@ -88,11 +89,11 @@ const init = async (skipDeps, provingSystem) => {
     );
     await getProofDeps([
       provingSystem === 1
-        ? "https://poof.nyc3.cdn.digitaloceanspaces.com/OutputRoot.wasm.gz"
-        : "https://poofgroth.nyc3.cdn.digitaloceanspaces.com/OutputRoot.wasm.gz",
+        ? "./depends/OutputRoot/Outputroot1/OutputRoot.wasm.gz"
+        : "./depends/OutputRoot/Outputrootnot1/OutputRoot.wasm.gz",
       provingSystem === 1
-        ? "https://poof.nyc3.cdn.digitaloceanspaces.com/OutputRoot_circuit_final.zkey.gz"
-        : "https://poofgroth.nyc3.cdn.digitaloceanspaces.com/OutputRoot_circuit_final.zkey.gz",
+        ? "./depends/OutputRoot/Outputroot1/OutputRoot_circuit_final.zkey.gz"
+        : "./depends/OutputRoot/Outputrootnot1/OutputRoot_circuit_final.zkey.gz",
     ]).then((deps) =>
       poofKit.initializeOutputRoot(
         async () => deps[0],
@@ -102,7 +103,7 @@ const init = async (skipDeps, provingSystem) => {
     depsInitialized = true;
   }
 };
-
+init()
 const approve = async (argv) => {
   await init();
   const { currency, amount } = argv;
